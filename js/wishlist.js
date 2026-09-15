@@ -79,8 +79,54 @@
 
   document.addEventListener("click", function (e) {
     var b = e.target.closest && e.target.closest(".wl-add");
-    if (b) { e.preventDefault(); open(b.getAttribute("data-model")); }
+    if (b) {
+      e.preventDefault();
+      open(b.getAttribute("data-model"));
+      // a swatch click pre-selects that finish in the matching option group
+      var color = b.getAttribute("data-color");
+      if (color) {
+        dlg.querySelectorAll('[data-wl="options"] input').forEach(function (r) {
+          var g = (r.getAttribute("data-group") || "").toLowerCase();
+          if (/color|frame|upholstery|mesh/.test(g) && r.value.toLowerCase() === color.toLowerCase()) r.checked = true;
+        });
+      }
+    }
   });
+
+  // catalog filtering and sorting
+  var grid = document.getElementById("seat-grid");
+  if (grid) {
+    var cards = [].slice.call(grid.children);
+    var count = document.getElementById("seat-count");
+    var show = function () {
+      var vis = cards.filter(function (c) { return !c.hidden; }).length;
+      if (count) count.textContent = "Showing " + vis + " of " + cards.length + " models. Availability changes with every liquidation.";
+    };
+    document.querySelectorAll(".cat-filters .chip").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        document.querySelectorAll(".cat-filters .chip").forEach(function (b) { b.classList.remove("on"); });
+        btn.classList.add("on");
+        var f = btn.getAttribute("data-filter");
+        cards.forEach(function (c) {
+          c.hidden = !(f === "all"
+            || (f.indexOf("brand:") === 0 && c.getAttribute("data-brand") === f.slice(6))
+            || (f.indexOf("type:") === 0 && c.getAttribute("data-type") === f.slice(5)));
+        });
+        show();
+      });
+    });
+    var sort = document.getElementById("seat-sort");
+    if (sort) sort.addEventListener("change", function () {
+      var v = sort.value;
+      cards.slice().sort(function (a, b2) {
+        if (v === "az") return a.getAttribute("data-name").localeCompare(b2.getAttribute("data-name"));
+        if (v === "brand") return a.getAttribute("data-brand").localeCompare(b2.getAttribute("data-brand")) || a.getAttribute("data-name").localeCompare(b2.getAttribute("data-name"));
+        if (v === "photo") return (b2.getAttribute("data-photo") - a.getAttribute("data-photo")) || (a.getAttribute("data-order") - b2.getAttribute("data-order"));
+        return a.getAttribute("data-order") - b2.getAttribute("data-order");
+      }).forEach(function (c) { grid.appendChild(c); });
+    });
+    show();
+  }
   dlg.querySelector(".wl-close").addEventListener("click", close);
   dlg.addEventListener("click", function (e) { if (e.target === dlg) close(); });
   dlg.addEventListener("close", function () { document.documentElement.classList.remove("wl-lock"); });
