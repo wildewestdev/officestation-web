@@ -1,0 +1,5 @@
+/used-office-furniture/*  /pre-owned-office-furniture/  301
+/used-office-furniture    /pre-owned-office-furniture/  301
+/liquidation              /office-furniture-liquidation/  301
+/chairs                   /pre-owned-office-chairs/  301
+/api/*                    /.netlify/functions/:splat  200
