@@ -20,6 +20,28 @@ export function zoneFor(zip) {
   return n >= 85001 && n <= 85399 ? "metro" : "far";
 }
 
+// Liquidation service markets (9/15/26): San Diego, Orange County, Northern California, Las Vegas, Reno,
+// Phoenix, Tucson, Flagstaff, Denver, Albuquerque, Salt Lake City. ZIP3 prefixes -> market.
+const SERVED_ZIP3 = [
+  [/^(919|920|921)/, "San Diego"], [/^(926|927|928)/, "Orange County"],
+  [/^(94[0-9]|95[01]|956|957|958)/, "Northern California"], [/^(889|890|891)/, "Las Vegas"],
+  [/^(894|895|897)/, "Reno"], [/^(850|851|852|853)/, "Phoenix"], [/^(856|857)/, "Tucson"],
+  [/^860/, "Flagstaff"], [/^(800|801|802|803|804|805|806)/, "Denver"], [/^(870|871)/, "Albuquerque"],
+  [/^(840|841)/, "Salt Lake City"],
+];
+export function servedMarket(zip) {
+  const z = String(zip || "").trim();
+  if (!/^\d{5}$/.test(z)) return null;
+  const hit = SERVED_ZIP3.find(([re]) => re.test(z));
+  return hit ? hit[1] : null;
+}
+// Liquidation travel zone: central Phoenix = core, any other served market = metro, elsewhere = far.
+export function liquidationZone(zip) {
+  const z = zoneFor(zip);
+  if (z === "core") return "core";
+  return servedMarket(zip) ? "metro" : z ? "far" : null;
+}
+
 // ---------------------------------------------------------------- 1. liquidation
 // What a corporate floor is worth to us, minus what it costs to clear it.
 // Positive net = we pay the client. Near zero = no-cost liquidation. Negative = net cost.
@@ -61,7 +83,7 @@ export function liquidation(input) {
   const condition = COND_MULT[input.condition] ? input.condition : "fair";
   const access = ACCESS_MULT[input.access] ? input.access : "elevator";
   const deadline = DEADLINE_MULT[input.deadline] ? input.deadline : "2-4";
-  const zone = zoneFor(input.zip) || "metro";
+  const zone = liquidationZone(input.zip) || "metro";
   const ai = { "0-7": 0, "8-15": 1, "15+": 2 }[age];
 
   const counts = { workstation: workstations, chair: chairs, office: offices, conference };
@@ -91,7 +113,8 @@ export function liquidation(input) {
   if (condition === "rough") drivers.push("Heavy wear cuts resale by more than half");
   if (access === "stairs") drivers.push("Stairs-only access adds crew hours");
   if (deadline === "<2") drivers.push("Under two weeks means after-hours and extra crews");
-  if (zone === "far") drivers.push("Outside the Phoenix metro adds travel");
+  if (zone === "far") drivers.push("Outside our service markets adds travel");
+  if (zone === "metro" && servedMarket(input.zip) && servedMarket(input.zip) !== "Phoenix") drivers.push(`${servedMarket(input.zip)} service market`);
   if (estimated) drivers.push(`Inventory estimated from ${sqft.toLocaleString("en-US")} sq ft; your counts will sharpen this`);
 
   return {
