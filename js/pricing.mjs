@@ -105,14 +105,16 @@ export function liquidation(input) {
 // ---------------------------------------------------------------- 2. office outfitting (deals)
 export const GRADES = {
   used: { label: "Liquidation grade", blurb: "From Phoenix corporate floors. Cleaned, inspected, fully working.", eta: "In as little as 72 hours", inStock: true },
-  reman: { label: "Remanufactured", blurb: "New fabric, surfaces and edge banding. Looks new, costs half.", eta: "In as little as 72 hours", inStock: true },
+  reman: { label: "Remanufactured", blurb: "New fabric, surfaces and edge banding. Looks new for about two-thirds of new.", eta: "In as little as 72 hours", inStock: true },
   new: { label: "New", blurb: "Factory-new commercial lines when you need a matched spec.", eta: "3–6 weeks", inStock: false },
 };
 export const WORKSTATIONS = {
-  "6x6": { label: "6' × 6' workstation", used: 395, reman: 745, new: 1550 },
-  "6x8": { label: "6' × 8' workstation", used: 465, reman: 845, new: 1750 },
-  "8x8": { label: "8' × 8' manager station", used: 545, reman: 965, new: 1995 },
-  bench: { label: "Open bench seat", used: 295, reman: 525, new: 995 },
+  // 9/15/26: 6x6 set by Carlos (liquidation $615, reman $1,245, new $1,920); other sizes scaled by the same ratios.
+  // Furniture prices exclude electrical, delivery and professional installation. Space planning is free.
+  "6x6": { label: "6' × 6' workstation", used: 615, reman: 1245, new: 1920 },
+  "6x8": { label: "6' × 8' workstation", used: 725, reman: 1410, new: 2170 },
+  "8x8": { label: "8' × 8' manager station", used: 850, reman: 1615, new: 2470 },
+  bench: { label: "Open bench seat", used: 460, reman: 875, new: 1235 },
 };
 export const PANELS = {
   low: { label: "Low 42\"", hint: "Collaborative", mult: 0.95 },
