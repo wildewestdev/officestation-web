@@ -1,5 +1,25 @@
-// Office Station: nav, header state, scroll reveal, lead forms.
+// Office Station: nav, header state, scroll reveal, lead forms, first-party analytics.
 (function () {
+  // cookie-free analytics beacon (feeds dash.officestation.com)
+  var TRACK = /netlify\.app$|localhost/.test(location.hostname) ? null : "https://officestation.netlify.app/.netlify/functions/track";
+  var send = function (o) {
+    if (!TRACK) return;
+    o.p = location.pathname;
+    var body = JSON.stringify(o);
+    try { if (navigator.sendBeacon && navigator.sendBeacon(TRACK, new Blob([body], { type: "text/plain" }))) return; } catch (e) {}
+    try { fetch(TRACK, { method: "POST", body: body, keepalive: true, mode: "no-cors", headers: { "Content-Type": "text/plain" } }); } catch (e) {}
+  };
+  window.osTrack = function (e) { send({ t: "event", e: e }); };
+  send({ t: "view", r: document.referrer || "" });
+  document.addEventListener("click", function (ev) {
+    var a = ev.target.closest && ev.target.closest("a");
+    if (!a) return;
+    var href = a.getAttribute("href") || "";
+    if (/^tel:/.test(href)) window.osTrack("tel");
+    else if (/^mailto:/.test(href)) window.osTrack("email");
+    else if (a.classList.contains("btn-copper")) window.osTrack("cta");
+  });
+
   var header = document.querySelector(".site-header");
   var toggle = document.querySelector(".nav-toggle");
   var nav = document.getElementById("site-nav");

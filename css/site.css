@@ -130,6 +130,31 @@ section { padding-block: clamp(64px, 9vw, 120px); }
 .plain-hero .crumbs { color: var(--faint); }
 .plain-hero .crumbs a:hover { color: var(--copper-text); }
 
+.photo-credit { font-size: .68rem; color: var(--faint); margin: 8px 0 0; line-height: 1.4; }
+.photo-credit a { color: inherit; }
+.photo-credit.on-hero { position: absolute; right: 12px; bottom: 8px; z-index: 3; color: rgba(255,255,255,.62); margin: 0; max-width: 60%; text-align: right; }
+.figure { margin: 0 0 34px; }
+.figure img { width: 100%; aspect-ratio: 16 / 8; object-fit: cover; }
+.logistics { list-style: none; padding: 0; margin: 0; counter-reset: lg; }
+.logistics li { position: relative; padding: 16px 0 16px 52px; border-bottom: 1px solid var(--line); }
+.logistics li::before { counter-increment: lg; content: counter(lg, decimal-leading-zero); position: absolute; left: 0; top: 16px; font-size: .78rem; letter-spacing: .12em; color: var(--copper-text); font-weight: 500; }
+
+/* designer seating cards */
+.seat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 22px; margin-bottom: 18px; }
+.seat-card { background: #fff; border: 1px solid var(--line); display: flex; flex-direction: column; }
+.seat-photo { aspect-ratio: 4 / 5; background: #fff; overflow: hidden; display: grid; place-items: center; }
+.seat-photo img { width: 100%; height: 100%; object-fit: contain; padding: 18px; transition: transform .8s ease; }
+.seat-card:hover .seat-photo img { transform: scale(1.03); }
+.seat-photo.studio { background: radial-gradient(ellipse at 50% 38%, #ffffff 0%, #f4f0ea 55%, #e9e3da 100%); }
+.studio-mark { display: grid; justify-items: center; gap: 14px; color: #b8aea1; }
+.studio-mark svg { width: 92px; height: 92px; stroke-width: .9; }
+.studio-mark span { font-size: 1.05rem; letter-spacing: .18em; text-transform: uppercase; color: #8e8478; }
+.seat-body { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.seat-body .k { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--copper-text); }
+.seat-body h3 { margin: 0; font-weight: 400; font-size: 1.25rem; }
+.seat-body p { color: var(--muted); font-size: .9rem; margin: 0 0 8px; }
+.seat-body .text-link { margin-top: auto; align-self: flex-start; }
+
 /* intro statement */
 .statement { font-size: clamp(1.35rem, 2.6vw, 2rem); line-height: 1.5; color: var(--ink); font-weight: 300; max-width: 30em; margin-inline: auto; }
 

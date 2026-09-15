@@ -47,8 +47,10 @@ if (est) {
     est.querySelector('[data-out="drivers"]').innerHTML = r.drivers.map((d) => `<li>${d}</li>`).join("");
     save("liquidation", input, { headline: r.headline, lo: r.lo, hi: r.hi, net: r.net });
   };
-  est.addEventListener("input", run);
-  est.addEventListener("change", run);
+  let estUsed = false;
+  const markEst = () => { if (!estUsed && window.osTrack) { estUsed = true; window.osTrack("estimator"); } };
+  est.addEventListener("input", () => { markEst(); run(); });
+  est.addEventListener("change", () => { markEst(); run(); });
   run();
 }
 
@@ -61,11 +63,13 @@ if (qf) {
     set(qf, "per", r.stations ? `${money(r.perStation)} per workstation, all in` : "Add workstations to start.");
     const eta = set(qf, "eta", r.etaLine);
     eta.classList.toggle("slow", !r.inStock);
-    qf.querySelector('[data-out="lines"]').innerHTML = r.lines.map((l) => `<li class="${l.save ? "save" : ""}"><span>${l.label}</span><span>${money(l.amount)}</span></li>`).join("");
+    qf.querySelector('[data-out="lines"]').innerHTML = r.lines.map((l) => `<li class="${l.save ? "save" : ""}"><span>${l.label}</span><span>${l.quoted ? "Quoted" : money(l.amount)}</span></li>`).join("");
     set(qf, "savings", r.savings > 0 ? `About ${money(r.savings)} less than the same layout new.` : "");
     save("outfit", input, { total: r.total, perStation: r.perStation, lines: r.lines });
   };
-  qf.addEventListener("input", run);
-  qf.addEventListener("change", run);
+  let qUsed = false;
+  const markQ = () => { if (!qUsed && window.osTrack) { qUsed = true; window.osTrack("quote"); } };
+  qf.addEventListener("input", () => { markQ(); run(); });
+  qf.addEventListener("change", () => { markQ(); run(); });
   run();
 }

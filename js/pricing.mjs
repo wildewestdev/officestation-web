@@ -176,8 +176,11 @@ export function outfit(config) {
   const units = stations + q.offices * 3 + q.conference * 2;
   const installCost = install && furniture ? Math.max(INSTALL_MIN, units * INSTALL_UNIT) : 0;
   if (installCost) lines.push({ label: "Professional installation", amount: installCost });
-  const delivery = furniture ? DELIVERY[zone] : 0;
+  // Arizona ZIPs get zone pricing; anywhere else in the country ships freight, quoted per project.
+  const nationwide = zone === "far";
+  const delivery = furniture && !nationwide ? DELIVERY[zone] : 0;
   if (delivery) lines.push({ label: "Delivery", amount: delivery });
+  if (furniture && nationwide) lines.push({ label: "Freight outside Greater Phoenix (quoted per project)", amount: 0, quoted: true });
   const total = furniture - discount + installCost + delivery;
   // what the same layout costs new, for the savings line
   const newEquivalent = grade === "new" ? total : Math.round(
