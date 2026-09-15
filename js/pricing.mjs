@@ -127,9 +127,10 @@ export function liquidation(input) {
 
 // ---------------------------------------------------------------- 2. office outfitting (deals)
 export const GRADES = {
-  used: { label: "Liquidation grade", blurb: "From Phoenix corporate floors. Cleaned, inspected, fully working.", eta: "In as little as 72 hours", inStock: true },
-  reman: { label: "Remanufactured", blurb: "New fabric, surfaces and edge banding. Looks new for about two-thirds of new.", eta: "In as little as 72 hours", inStock: true },
-  new: { label: "New", blurb: "Factory-new commercial lines when you need a matched spec.", eta: "3–6 weeks", inStock: false },
+  // Lead times (Carlos 9/15/26): liquidation grade as little as 72 hours in stock; reman usually 7-14 days; new 4-6 weeks.
+  used: { label: "Liquidation grade", blurb: "From Phoenix corporate floors. Cleaned, inspected, fully working.", eta: "In as little as 72 hours", etaLine: "In stock: installed in as little as 72 hours", inStock: true },
+  reman: { label: "Remanufactured", blurb: "New fabric, surfaces and edge banding. Looks new for about two-thirds of new.", eta: "Usually 7–14 days", etaLine: "Remanufactured: usually 7–14 days", inStock: false },
+  new: { label: "New", blurb: "Factory-new commercial lines when you need a matched spec.", eta: "4–6 weeks", etaLine: "New: 4–6 weeks", inStock: false },
 };
 export const WORKSTATIONS = {
   // 9/15/26: 6x6 set by Carlos (liquidation $615, reman $1,245, new $1,920); other sizes scaled by the same ratios.
@@ -188,6 +189,6 @@ export function outfit(config) {
     grade, size, panel, stations, ...q, install, zone, lines, furniture, discount, installCost, delivery, total,
     perStation: stations ? Math.round(total / stations) : 0,
     savings: Math.max(0, Math.round(newEquivalent - total)),
-    eta: GRADES[grade].eta, inStock: GRADES[grade].inStock,
+    eta: GRADES[grade].eta, etaLine: GRADES[grade].etaLine, inStock: GRADES[grade].inStock,
   };
 }

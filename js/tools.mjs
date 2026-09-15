@@ -59,7 +59,7 @@ if (qf) {
     const r = outfit(input);
     tween(qf.querySelector('[data-out="total"]'), r.total, money);
     set(qf, "per", r.stations ? `${money(r.perStation)} per workstation, all in` : "Add workstations to start.");
-    const eta = set(qf, "eta", r.inStock ? "In stock: installed in as little as 72 hours" : "New: 3–6 weeks");
+    const eta = set(qf, "eta", r.etaLine);
     eta.classList.toggle("slow", !r.inStock);
     qf.querySelector('[data-out="lines"]').innerHTML = r.lines.map((l) => `<li class="${l.save ? "save" : ""}"><span>${l.label}</span><span>${money(l.amount)}</span></li>`).join("");
     set(qf, "savings", r.savings > 0 ? `About ${money(r.savings)} less than the same layout new.` : "");
