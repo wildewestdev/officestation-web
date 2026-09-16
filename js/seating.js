@@ -1,7 +1,7 @@
-// Seating wish list: pick a chair, choose variations, build a multi-chair list, submit through the lead form.
+// Seating request: pick a chair, choose options, build a multi-chair request, submit through the lead form.
 (function () {
   var dataEl = document.getElementById("chair-data");
-  var dlg = document.getElementById("wishlist");
+  var dlg = document.getElementById("seat-request");
   if (!dataEl || !dlg) return;
   var DATA = JSON.parse(dataEl.textContent);
   var chairs = DATA.chairs;
@@ -9,13 +9,11 @@
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
   var list = [];
   var current = null;
-  try { list = JSON.parse(sessionStorage.getItem("os-wishlist") || "[]"); } catch (e) {}
-  var persist = function () { try { sessionStorage.setItem("os-wishlist", JSON.stringify(list)); } catch (e) {} };
+  try { list = JSON.parse(sessionStorage.getItem("os-seating") || "[]"); } catch (e) {}
+  var persist = function () { try { sessionStorage.setItem("os-seating", JSON.stringify(list)); } catch (e) {} };
 
-  var thumb = function (c) {
-    return c.img
-      ? '<img src="' + esc(c.img) + '" alt="' + esc(c.brand + " " + c.model) + '">'
-      : '<div class="wl-studio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true"><path d="M7 3h10v8H7zM6 11h12v3H6zM12 14v4M8 21l4-3 4 3M9 18h6"/></svg><span>' + esc(c.model) + "</span></div>";
+  var thumb = function (c, src) {
+    return '<img src="' + esc(src || c.img) + '" alt="' + esc(c.brand + " " + c.model) + '">';
   };
 
   // model switcher + condition list
@@ -27,7 +25,14 @@
     $("switch").value = String(i);
     $("photo").innerHTML = thumb(current);
     $("brand").textContent = current.brand;
-    $("model").textContent = current.model;
+    $("model").textContent = current.brand + " " + current.model;
+    // front / back studio angles, when we have both
+    var views = [current.img].concat(current.back ? [current.back] : []);
+    $("views").innerHTML = views.length > 1
+      ? views.map(function (v, vi) {
+          return '<button type="button" class="wl-view' + (vi === 0 ? " on" : "") + '" data-src="' + esc(v) + '" aria-label="' + (vi === 0 ? "Front" : "Back") + ' view"><img src="' + esc(v) + '" alt=""></button>';
+        }).join("")
+      : "";
     $("qty").value = 1;
     $("options").innerHTML = Object.keys(current.options).map(function (group, gi) {
       return '<fieldset class="fieldset wl-group"><legend>' + esc(group) + '</legend><div class="opts">' +
@@ -39,7 +44,7 @@
 
   function renderList() {
     var ul = $("items");
-    if (!list.length) { ul.innerHTML = '<li class="wl-empty">Add chairs to build your list.</li>'; }
+    if (!list.length) { ul.innerHTML = '<li class="wl-empty">Add chairs to build your request.</li>'; }
     else {
       ul.innerHTML = list.map(function (it, i) {
         var c = chairs.find(function (x) { return x.model === it.model; }) || { model: it.model, brand: it.brand };
@@ -61,7 +66,7 @@
     renderList();
     var btn = $("add");
     btn.textContent = "Added. Add another chair?";
-    setTimeout(function () { btn.textContent = "Add to wish list"; }, 2200);
+    setTimeout(function () { btn.textContent = "Add to request"; }, 2200);
     if (window.osTrack) window.osTrack("cta");
   }
 
@@ -82,14 +87,6 @@
     if (b) {
       e.preventDefault();
       open(b.getAttribute("data-model"));
-      // a swatch click pre-selects that finish in the matching option group
-      var color = b.getAttribute("data-color");
-      if (color) {
-        dlg.querySelectorAll('[data-wl="options"] input').forEach(function (r) {
-          var g = (r.getAttribute("data-group") || "").toLowerCase();
-          if (/color|frame|upholstery|mesh/.test(g) && r.value.toLowerCase() === color.toLowerCase()) r.checked = true;
-        });
-      }
     }
   });
 
@@ -127,6 +124,12 @@
     });
     show();
   }
+  $("views").addEventListener("click", function (e) {
+    var v = e.target.closest(".wl-view");
+    if (!v) return;
+    $("photo").innerHTML = thumb(current, v.getAttribute("data-src"));
+    dlg.querySelectorAll(".wl-view").forEach(function (b) { b.classList.toggle("on", b === v); });
+  });
   dlg.querySelector(".wl-close").addEventListener("click", close);
   dlg.addEventListener("click", function (e) { if (e.target === dlg) close(); });
   dlg.addEventListener("close", function () { document.documentElement.classList.remove("wl-lock"); });

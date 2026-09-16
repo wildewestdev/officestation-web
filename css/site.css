@@ -142,7 +142,7 @@ section { padding-block: clamp(64px, 9vw, 120px); }
 /* designer seating cards */
 .seat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 22px; margin-bottom: 18px; }
 .seat-card { background: #fff; border: 1px solid var(--line); display: flex; flex-direction: column; }
-.seat-photo { aspect-ratio: 4 / 5; background: #fff; overflow: hidden; display: grid; place-items: center; }
+.seat-photo { aspect-ratio: 1 / 1; background: #fff; overflow: hidden; display: grid; place-items: center; }
 .seat-photo img { width: 100%; height: 100%; object-fit: contain; padding: 18px; transition: transform .8s ease; }
 .seat-card:hover .seat-photo img { transform: scale(1.03); }
 .seat-photo.studio { background: radial-gradient(ellipse at 50% 38%, #ffffff 0%, #f4f0ea 55%, #e9e3da 100%); }
@@ -199,6 +199,11 @@ html.wl-lock { overflow: hidden; }
 .wl-studio { width: 100%; height: 100%; display: grid; place-items: center; align-content: center; gap: 8px; color: #b8aea1; background: radial-gradient(ellipse at 50% 38%, #fff 0%, #f4f0ea 55%, #e9e3da 100%); }
 .wl-studio svg { width: 54%; max-width: 90px; }
 .wl-studio span { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: #8e8478; text-align: center; padding: 0 6px; }
+.wl-views { display: flex; gap: 8px; margin: 0 0 12px; }
+.wl-views:empty { display: none; }
+.wl-view { width: 46px; height: 46px; padding: 2px; background: #fff; border: 1px solid var(--line); cursor: pointer; }
+.wl-view img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.wl-view.on, .wl-view:hover, .wl-view:focus-visible { border-color: var(--copper); }
 .wl-group { margin-bottom: 16px; }
 .wl-group .opts { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
 .wl-group .opt span { padding: 9px 12px; }
