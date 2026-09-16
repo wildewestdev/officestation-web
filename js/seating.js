@@ -39,6 +39,9 @@
       : "";
     $("qty").value = 1;
     setConditions(current);
+    var pr = current.prices || {};
+    var parts = Object.keys(pr).filter(function (k) { return pr[k]; }).map(function (k) { return k + " " + pr[k]; });
+    $("price").textContent = parts.length ? parts.join("  ·  ") + "  per chair" : "Priced on request";
     $("options").innerHTML = Object.keys(current.options).map(function (group, gi) {
       return '<fieldset class="fieldset wl-group"><legend>' + esc(group) + '</legend><div class="opts">' +
         current.options[group].map(function (v, vi) {
