@@ -308,6 +308,29 @@ html.wl-lock { overflow: hidden; }
 .disclosure li { margin-bottom: 8px; }
 
 /* compare table */
+/* cubicle configurations: plan-view cards */
+.cfg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.cfg { background: #fff; display: flex; flex-direction: column; }
+.cfg-plan { background: var(--stone); padding: 26px 22px; display: grid; place-items: center; border-bottom: 1px solid var(--line); }
+.plan { width: 100%; max-width: 300px; height: auto; display: block; }
+.cfg-body { padding: 24px 26px 26px; display: flex; flex-direction: column; flex: 1; }
+.cfg-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.cfg-head h3 { font-size: 1.16rem; margin: 0; }
+.cfg-seats { font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); white-space: nowrap; }
+.cfg-body > p { margin: 10px 0 0; font-size: .93rem; color: var(--ink-2); }
+.cfg-specs { margin: 16px 0 0; display: grid; gap: 8px; }
+.cfg-specs div { display: grid; grid-template-columns: 78px 1fr; gap: 12px; }
+.cfg-specs dt { font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); padding-top: 2px; }
+.cfg-specs dd { margin: 0; font-size: .88rem; color: var(--ink-2); }
+.cfg-price { display: flex; gap: 22px; margin: 18px 0 16px; padding-top: 16px; border-top: 1px solid var(--line); margin-top: auto; }
+.cfg-price .k { display: block; font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin-bottom: 3px; }
+.cfg-price strong { font-size: 1.12rem; font-weight: 400; }
+.cfg .btn { width: 100%; text-align: center; }
+.ht { border: 1px solid var(--line); background: #fff; padding: 26px 24px; height: 100%; }
+.ht-svg { width: 100%; max-width: 150px; height: auto; display: block; margin-bottom: 18px; }
+.ht h3 { margin: 4px 0 8px; font-size: 1.12rem; }
+.ht p { font-size: .92rem; color: var(--ink-2); }
+@media (max-width: 560px) { .cfg-grid { grid-template-columns: 1fr; } }
 .table-wrap { overflow-x: auto; margin: 26px 0; border: 1px solid var(--line); }
 table { border-collapse: collapse; width: 100%; font-size: .94rem; }
 th, td { text-align: left; padding: 14px 18px; border-bottom: 1px solid var(--line); vertical-align: top; }
