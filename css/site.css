@@ -308,6 +308,29 @@ html.wl-lock { overflow: hidden; }
 .disclosure li { margin-bottom: 8px; }
 
 /* compare table */
+/* resource library search */
+.vh { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.lib-search { margin-top: 30px; max-width: 720px; }
+.lib-field { position: relative; display: flex; align-items: center; background: #fff; border: 1px solid var(--line); }
+.lib-field:focus-within { border-color: var(--copper); }
+.lib-ico { width: 18px; height: 18px; margin-left: 16px; flex: none; fill: none; stroke: var(--faint); stroke-width: 1.8; stroke-linecap: round; }
+#lib-q { flex: 1; min-width: 0; border: 0; background: none; padding: 15px 14px; font: inherit; font-size: .98rem; color: var(--ink); outline: none; appearance: none; }
+#lib-q::-webkit-search-cancel-button { display: none; }
+.lib-clear { border: 0; background: none; padding: 0 16px; font: inherit; font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); cursor: pointer; }
+.lib-clear:hover { color: var(--copper-text); }
+.lib-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.lib-status { margin: 12px 0 0; font-size: .82rem; color: var(--faint); min-height: 1.2em; }
+.lib-sec[hidden], .lib-item[hidden] { display: none !important; }
+.lib-empty { padding-block: 70px; }
+
+/* average-market-rate disclaimer, shown wherever a price appears */
+.mkt-rate { display: inline-block; font-size: .62rem; letter-spacing: .13em; text-transform: uppercase; color: var(--copper-text, #a8552c); border: 1px solid var(--line); border-radius: 2px; padding: 2px 7px; white-space: nowrap; vertical-align: middle; line-height: 1.5; }
+.mkt-rate.block { display: block; width: fit-content; margin-top: 10px; }
+.out-label .mkt-rate { margin-left: 8px; }
+.grade .mkt-rate { margin: 8px 0 2px; }
+.prose .rate-fine { margin: -14px 0 26px; }
+.prose .rate-fine .mkt-rate { margin-right: 6px; }
+
 /* cubicle configurations: plan-view cards */
 .cfg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
 .cfg { background: #fff; display: flex; flex-direction: column; }
