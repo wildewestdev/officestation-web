@@ -18,7 +18,11 @@
 
   // model switcher + condition list
   $("switch").innerHTML = chairs.map(function (c, i) { return '<option value="' + i + '">' + esc(c.brand + " " + c.model) + "</option>"; }).join("");
-  $("condition").innerHTML = DATA.conditions.map(function (c) { return "<option>" + esc(c) + "</option>"; }).join("");
+  var setConditions = function (c) {
+    var opts = c.conditions || DATA.conditions;
+    $("condition").innerHTML = opts.map(function (o) { return "<option>" + esc(o) + "</option>"; }).join("");
+    $("condlabel").textContent = opts[0] + " or " + opts[1].toLowerCase();
+  };
 
   function select(i) {
     current = chairs[i];
@@ -34,6 +38,7 @@
         }).join("")
       : "";
     $("qty").value = 1;
+    setConditions(current);
     $("options").innerHTML = Object.keys(current.options).map(function (group, gi) {
       return '<fieldset class="fieldset wl-group"><legend>' + esc(group) + '</legend><div class="opts">' +
         current.options[group].map(function (v, vi) {
