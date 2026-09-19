@@ -308,6 +308,25 @@ html.wl-lock { overflow: hidden; }
 .disclosure li { margin-bottom: 8px; }
 
 /* compare table */
+.brand-word .tm { font-size: .5em; font-weight: 400; vertical-align: super; line-height: 0; margin-left: 1px; letter-spacing: 0; }
+
+/* new-furniture category tiles */
+.cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.cat-tile { background: #fff; padding: 28px 26px 26px; display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: background .25s ease; }
+.cat-tile:hover { background: var(--stone); }
+.cat-tile .ico { color: var(--copper); margin-bottom: 16px; }
+.cat-tile .ico svg { width: 26px; height: 26px; }
+.cat-tile h3 { font-size: 1.08rem; margin: 0 0 8px; }
+.cat-tile p { font-size: .9rem; color: var(--ink-2); margin: 0 0 18px; flex: 1; }
+.opts-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
+.brand-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(268px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.brand-card { background: #fff; padding: 26px 24px 24px; display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: background .25s ease; }
+.brand-card:hover { background: var(--stone); }
+.brand-name { display: block; font-size: 1.12rem; letter-spacing: .01em; margin-bottom: 10px; }
+.brand-card p { font-size: .9rem; color: var(--ink-2); margin: 0 0 16px; flex: 1; }
+.brand-card .seat-tags { margin: 0 0 16px; }
+.brand-card[hidden] { display: none !important; }
+
 /* resource library search */
 .vh { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .lib-search { margin-top: 30px; max-width: 720px; }
