@@ -316,6 +316,12 @@ html.wl-lock { overflow: hidden; }
 .sys-card[hidden] { display: none !important; }
 .sys-art { position: relative; background: var(--stone); border-bottom: 1px solid var(--line); padding: 20px; display: grid; place-items: center; }
 .sys-art svg { width: 100%; max-width: 260px; height: auto; display: block; }
+.sys-art.has-photo { padding: 0; aspect-ratio: 3 / 2; overflow: hidden; }
+.sys-art.has-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.install-shot { margin: 0; }
+.install-shot img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; display: block; border: 1px solid var(--line); }
+.install-shot figcaption { font-size: .8rem; color: var(--faint); margin-top: 10px; line-height: 1.45; }
+.sys-real { position: absolute; right: 14px; top: 14px; font-size: .6rem; letter-spacing: .12em; text-transform: uppercase; background: var(--copper); color: #fff; padding: 3px 9px; }
 .sys-flag { position: absolute; left: 14px; top: 14px; font-size: .62rem; letter-spacing: .12em; text-transform: uppercase; background: #fff; border: 1px solid var(--line); padding: 3px 8px; color: var(--ink-2); }
 .sys-body { padding: 24px 26px 26px; display: flex; flex-direction: column; flex: 1; }
 .sys-body h3 { font-size: 1.16rem; margin: 4px 0 10px; }
