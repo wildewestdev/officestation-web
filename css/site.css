@@ -549,3 +549,14 @@ input:focus, select:focus, textarea:focus { outline: 2px solid rgba(210,124,82,.
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* territory rep card (market pages, markets hub) */
+.rep-mini { display: flex; gap: 14px; align-items: center; background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--copper); padding: 14px 16px; margin-top: 28px; }
+.rep-mini img { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 0 0 1px var(--line); }
+.rep-mini > div { display: flex; flex-direction: column; min-width: 0; line-height: 1.35; }
+.rep-mini .k { font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--copper-text); font-weight: 500; }
+.rep-mini strong { font-weight: 500; color: var(--ink); font-size: 1rem; }
+.rep-mini small { color: var(--muted); font-size: .8rem; margin-bottom: 4px; }
+.rep-mini a { display: inline-flex; align-items: center; gap: 8px; font-size: .88rem; color: var(--ink); text-decoration: none; padding: 2px 0; overflow-wrap: anywhere; }
+.rep-mini a:hover { color: var(--copper-text); }
+.rep-mini svg { width: 16px; height: 16px; color: var(--copper-text); flex: none; }

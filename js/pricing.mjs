@@ -20,7 +20,7 @@ export function zoneFor(zip) {
   return n >= 85001 && n <= 85399 ? "metro" : "far";
 }
 
-// Liquidation service markets (9/15/26): San Diego, Orange County, Northern California, Las Vegas, Reno,
+// Liquidation hub markets (9/15/26 West, 9/23/26 national): San Diego, Orange County, Northern California, Las Vegas, Reno,
 // Phoenix, Tucson, Flagstaff, Denver, Albuquerque, Salt Lake City. ZIP3 prefixes -> market.
 const SERVED_ZIP3 = [
   [/^(919|920|921)/, "San Diego"], [/^(926|927|928)/, "Orange County"],
@@ -28,6 +28,41 @@ const SERVED_ZIP3 = [
   [/^(894|895|897)/, "Reno"], [/^(850|851|852|853)/, "Phoenix"], [/^(856|857)/, "Tucson"],
   [/^860/, "Flagstaff"], [/^(800|801|802|803|804|805|806)/, "Denver"], [/^(870|871)/, "Albuquerque"],
   [/^(840|841)/, "Salt Lake City"],
+  // national markets, 9/23/26 (ZIP3s of each metro's office districts)
+  [/^(900|904|902|912|915)/, "Los Angeles"],
+  [/^(981|980)/, "Seattle"],
+  [/^(972|970)/, "Portland"],
+  [/^(752|750|761)/, "Dallas-Fort Worth"],
+  [/^(770|773)/, "Houston"],
+  [/^(787|786)/, "Austin"],
+  [/^(782)/, "San Antonio"],
+  [/^(731)/, "Oklahoma City"],
+  [/^(681)/, "Omaha"],
+  [/^(641|662)/, "Kansas City"],
+  [/^(631|630)/, "St. Louis"],
+  [/^(554|551)/, "Minneapolis-St. Paul"],
+  [/^(532|530|531)/, "Milwaukee"],
+  [/^(606|600)/, "Chicago"],
+  [/^(482|480|483)/, "Detroit"],
+  [/^(495)/, "Grand Rapids"],
+  [/^(462|460)/, "Indianapolis"],
+  [/^(432|430)/, "Columbus"],
+  [/^(441)/, "Cleveland"],
+  [/^(452|450|410)/, "Cincinnati"],
+  [/^(152|153|151)/, "Pittsburgh"],
+  [/^(100|112|111)/, "New York City"],
+  [/^(073|071|079|070|076)/, "Northern New Jersey"],
+  [/^(021|022|024)/, "Boston"],
+  [/^(191|194|190)/, "Philadelphia"],
+  [/^(212|210)/, "Baltimore"],
+  [/^(200)/, "Washington, D.C."],
+  [/^(303)/, "Atlanta"],
+  [/^(282)/, "Charlotte"],
+  [/^(276|277)/, "Raleigh-Durham"],
+  [/^(372|370)/, "Nashville"],
+  [/^(331)/, "Miami"],
+  [/^(336|337)/, "Tampa"],
+  [/^(328|327)/, "Orlando"],
 ];
 export function servedMarket(zip) {
   const z = String(zip || "").trim();
@@ -113,7 +148,7 @@ export function liquidation(input) {
   if (condition === "rough") drivers.push("Heavy wear cuts resale by more than half");
   if (access === "stairs") drivers.push("Stairs-only access adds crew hours");
   if (deadline === "<2") drivers.push("Under two weeks means after-hours and extra crews");
-  if (zone === "far") drivers.push("Outside our service markets adds travel");
+  if (zone === "far") drivers.push("Outside our hub markets adds crew travel");
   if (zone === "metro" && servedMarket(input.zip) && servedMarket(input.zip) !== "Phoenix") drivers.push(`${servedMarket(input.zip)} service market`);
   if (estimated) drivers.push(`Inventory estimated from ${sqft.toLocaleString("en-US")} sq ft; your counts will sharpen this`);
 
