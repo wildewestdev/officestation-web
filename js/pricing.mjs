@@ -154,7 +154,7 @@ export const EXTRAS = {
 const INSTALL_UNIT = 95;
 const INSTALL_MIN = 495;
 const DELIVERY = { core: 195, metro: 295, far: 495 };
-const VOLUME = [{ min: 100, pct: 0.12 }, { min: 50, pct: 0.08 }, { min: 20, pct: 0.05 }];
+export const VOLUME = [{ min: 100, pct: 0.12 }, { min: 50, pct: 0.08 }, { min: 20, pct: 0.05 }];
 
 // config: { grade, size, panel, stations, chairs, pedestals, offices, conference, install, zip }
 export function outfit(config) {
