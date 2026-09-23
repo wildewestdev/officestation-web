@@ -103,6 +103,8 @@
 .pl-rdlg { max-width: 1240px !important; width: calc(100% - 32px) !important; padding: 18px 20px !important; }
 .pl-rhead { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
 .pl-rhead h3 { margin: 0 0 10px; }
+.pl-rang { margin: 0 auto 10px 8px; }
+.pl-rang button { flex: none; padding: 6px 14px; }
 #pl-rstat { font-size: .78rem; color: var(--ink-2); }
 .pl-rview { width: 100%; background: #f1efeb; min-height: 200px; }
 .pl-rview canvas { display: block; width: 100% !important; height: auto !important; }
