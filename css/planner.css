@@ -53,6 +53,21 @@
 .pl-sw { display: flex; gap: 6px; margin-bottom: 2px; }
 .pl-sw button { width: 28px; height: 28px; border-radius: 50%; background: var(--c); border: 1px solid rgba(0,0,0,.2); cursor: pointer; padding: 0; }
 .pl-sw button[aria-pressed="true"] { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ink); }
+/* custom finish colour: swatch + HSL sliders whose tracks preview the range */
+.pl-sw .pl-sw-custom { background: conic-gradient(#e44 0 60deg, #ec4 0 120deg, #4c6 0 180deg, #4ce 0 240deg, #46e 0 300deg, #c4e 0); }
+.pl-sw .pl-sw-custom[aria-pressed="true"] { background: var(--c); }
+.pl-cust { border: 1px solid var(--line); padding: 8px 10px 10px; margin-top: 6px; background: var(--stone); }
+.pl-cust[hidden] { display: none; }
+.pl-cust label { font-size: .7rem; color: var(--ink-2); margin-bottom: 4px; }
+.pl-cust input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 12px; border-radius: 6px; margin: 2px 0 4px; border: 1px solid rgba(0,0,0,.12); }
+.pl-cust input[data-hsl="h"] { background: linear-gradient(90deg, hsl(0,var(--s),var(--l)), hsl(60,var(--s),var(--l)), hsl(120,var(--s),var(--l)), hsl(180,var(--s),var(--l)), hsl(240,var(--s),var(--l)), hsl(300,var(--s),var(--l)), hsl(359,var(--s),var(--l))); }
+.pl-cust input[data-hsl="s"] { background: linear-gradient(90deg, hsl(var(--h),0%,var(--l)), hsl(var(--h),100%,var(--l))); }
+.pl-cust input[data-hsl="l"] { background: linear-gradient(90deg, #000, hsl(var(--h),var(--s),50%), #fff); }
+.pl-cust input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 2px solid var(--ink); cursor: pointer; }
+.pl-cust input[type=range]::-moz-range-thumb { width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2px solid var(--ink); cursor: pointer; }
+.pl-cust-row { display: flex; gap: 6px; align-items: center; margin-top: 4px; }
+.pl-cust-row input[type=color] { width: 40px; height: 34px; padding: 0 2px; border: 1px solid var(--pl-line); background: #fff; flex: none; cursor: pointer; }
+.pl-cust-row input[type=text] { flex: 1; min-width: 0; font: inherit; font-size: .8rem; padding: 7px 8px; border: 1px solid var(--pl-line); min-height: 34px; }
 .pl-stage { position: relative; display: grid; grid-template-columns: 1fr; min-width: 0; background: #eeebe6; }
 .pl-stage[data-view="split"] { grid-template-columns: 1fr 1fr; }
 .pl-stage[data-view="plan"] .pl-3d, .pl-stage[data-view="3d"] .pl-2d { display: none; }
