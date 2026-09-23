@@ -69,7 +69,9 @@ p { margin: 0 0 1.1em; }
 .brand svg { width: 38px; height: 38px; flex: none; }
 .brand-word { display: flex; flex-direction: column; line-height: 1.05; }
 .brand-word b { font-weight: 500; font-size: 1.25rem; letter-spacing: -.01em; }
-.brand-word small { font-size: .56rem; letter-spacing: .32em; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+.brand-word small { font-size: .56rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+/* one phrase per line, never broken mid-phrase */
+.brand-word small span { display: block; white-space: nowrap; line-height: 1.45; }
 .nav { display: flex; align-items: center; gap: clamp(16px, 2.2vw, 34px); }
 .nav > a:not(.btn), .nav .dd > button { font: 400 .78rem var(--font); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); text-decoration: none; background: none; border: 0; cursor: pointer; padding: 8px 0; }
 .nav > a:not(.btn):hover, .nav > a[aria-current="page"], .nav .dd > button:hover { color: var(--copper-text); }
