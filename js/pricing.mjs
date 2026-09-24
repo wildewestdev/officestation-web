@@ -176,7 +176,7 @@ export const WORKSTATIONS = {
   bench: { label: "Open bench seat", used: 460, reman: 875, new: 1235 },
 };
 export const PANELS = {
-  low: { label: "Low 42\"", hint: "Collaborative", mult: 0.95 },
+  low: { label: "Low 47\"", hint: "Collaborative", mult: 0.95 },
   mid: { label: "Mid 53\"", hint: "Seated privacy", mult: 1 },
   tall: { label: "Tall 65\"", hint: "Full privacy", mult: 1.08 },
 };
