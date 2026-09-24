@@ -538,6 +538,8 @@ input:focus, select:focus, textarea:focus { outline: 2px solid rgba(210,124,82,.
 .site-footer ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
 .site-footer a { text-decoration: none; color: var(--muted); }
 .site-footer a:hover { color: var(--copper-text); }
+.foot-ref { margin: 48px 0 0; max-width: 110ch; font-size: .72rem; font-weight: 300; line-height: 1.6; color: #767676; }
+.foot-ref + .foot-bottom { margin-top: 18px; }
 .foot-bottom { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: .78rem; color: var(--faint); }
 
 /* reveal */
