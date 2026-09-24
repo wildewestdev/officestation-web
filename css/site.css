@@ -623,31 +623,32 @@ input:focus, select:focus, textarea:focus { outline: 2px solid rgba(210,124,82,.
 .mp-consent { display: flex; gap: 10px; align-items: flex-start; font-size: .84rem; line-height: 1.55; color: var(--ink-2); margin: 6px 0 20px; }
 .mp-consent input { margin-top: 4px; flex: none; }
 @media (max-width: 900px) { .mp-top, .mp-lower { grid-template-columns: 1fr; } }
-/* homepage Marketplace card: frosted glass. Text colours are chosen for contrast against the
-   worst case behind the glass (a black photo), not just the white page. */
-.mp-promo { --glass: rgba(255,255,255,.86); position: fixed; right: 20px; bottom: 20px; z-index: 50; width: 360px; max-width: calc(100vw - 32px); color: #262626; }
-.mp-promo-card { position: relative; background: var(--glass); -webkit-backdrop-filter: blur(18px) saturate(1.6); backdrop-filter: blur(18px) saturate(1.6); border: 1px solid rgba(255,255,255,.7); border-radius: 16px; box-shadow: 0 18px 44px rgba(22,22,22,.18), 0 2px 6px rgba(22,22,22,.06), inset 0 1px 0 rgba(255,255,255,.8); overflow: hidden; }
+/* homepage Marketplace card: frosted glass at ~52% white. The backdrop filter flattens contrast and
+   lifts brightness so a dark photo behind the card turns light grey rather than dark, keeping the dark
+   text >= 4.5:1 even over black (measured: tools/marketplace-promo-test.cjs). */
+.mp-promo { --glass: rgba(255,255,255,.52); position: fixed; right: 20px; bottom: 20px; z-index: 50; width: 360px; max-width: calc(100vw - 32px); color: #262626; }
+.mp-promo-card { position: relative; background: var(--glass); -webkit-backdrop-filter: blur(22px) saturate(1) contrast(.55) brightness(1.7); backdrop-filter: blur(22px) saturate(1) contrast(.55) brightness(1.7); border: 1px solid rgba(255,255,255,.7); border-radius: 16px; box-shadow: 0 18px 44px rgba(22,22,22,.18), 0 2px 6px rgba(22,22,22,.06), inset 0 1px 0 rgba(255,255,255,.8); overflow: hidden; }
 .mp-promo-link { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 14px; padding: 12px 42px 10px 12px; text-decoration: none; color: inherit; }
 .mp-promo-img { aspect-ratio: 1; overflow: hidden; border-radius: 10px; background: var(--stone); }
 .mp-promo-img img { width: 100%; height: 100%; object-fit: cover; }
 .mp-promo-txt { display: flex; flex-direction: column; gap: 2px; min-width: 0; font-size: .82rem; line-height: 1.4; }
-.mp-promo-txt .k { font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: #7a3b1c; font-weight: 600; }
-.mp-promo-txt b { font-weight: 600; font-size: .92rem; color: #161616; }
-.mp-promo-txt .t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; color: #333; }
+.mp-promo-txt .k { font-size: .6rem; letter-spacing: .16em; text-transform: uppercase; color: #4a1e09; font-weight: 700; }
+.mp-promo-txt b { font-weight: 600; font-size: .92rem; color: #0d0d0d; }
+.mp-promo-txt .t { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; color: #151515; }
 .mp-promo-txt .go { margin-top: 4px; display: inline-flex; align-items: center; gap: 6px; font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: #161616; }
 .mp-promo-txt .go svg { width: 14px; height: 14px; color: #7a3b1c; }
 .mp-promo-link:hover .go { color: #7a3b1c; }
-.mp-promo-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 12px 10px; border-top: 1px solid rgba(22,22,22,.08); font-size: .74rem; color: #333; }
+.mp-promo-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px 12px 10px; border-top: 1px solid rgba(22,22,22,.1); font-size: .74rem; color: #151515; font-weight: 500; }
 .mp-where { display: inline-flex; align-items: center; gap: 5px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .mp-where svg { width: 14px; height: 14px; color: #7a3b1c; flex: none; }
-.mp-promo-more { border: 1px solid rgba(22,22,22,.18); background: rgba(255,255,255,.55); border-radius: 999px; padding: 5px 12px; font: 600 .66rem var(--font); letter-spacing: .1em; text-transform: uppercase; color: #161616; cursor: pointer; white-space: nowrap; }
+.mp-promo-more { border: 1px solid rgba(22,22,22,.25); background: rgba(255,255,255,.45); border-radius: 999px; padding: 5px 12px; font: 600 .66rem var(--font); letter-spacing: .1em; text-transform: uppercase; color: #161616; cursor: pointer; white-space: nowrap; }
 .mp-promo-more:hover, .mp-promo-more[aria-expanded="true"] { background: #161616; border-color: #161616; color: #fff; }
 .mp-promo-x { position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; border: 0; border-radius: 50%; background: rgba(255,255,255,.5); color: #333; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .mp-promo-x:hover { background: #161616; color: #fff; }
 .mp-promo-x svg { width: 15px; height: 15px; }
-.mp-promo-menu { position: absolute; right: 0; bottom: calc(100% + 10px); width: min(560px, calc(100vw - 32px)); max-height: min(62vh, 520px); overflow: auto; background: rgba(255,255,255,.92); -webkit-backdrop-filter: blur(18px) saturate(1.6); backdrop-filter: blur(18px) saturate(1.6); border: 1px solid rgba(255,255,255,.7); border-radius: 16px; box-shadow: 0 18px 44px rgba(22,22,22,.2); padding: 14px 16px 16px; }
+.mp-promo-menu { position: absolute; right: 0; bottom: calc(100% + 10px); width: min(560px, calc(100vw - 32px)); max-height: min(62vh, 520px); overflow: auto; background: rgba(255,255,255,.55); -webkit-backdrop-filter: blur(22px) saturate(1) contrast(.55) brightness(1.7); backdrop-filter: blur(22px) saturate(1) contrast(.55) brightness(1.7); border: 1px solid rgba(255,255,255,.7); border-radius: 16px; box-shadow: 0 18px 44px rgba(22,22,22,.2); padding: 14px 16px 16px; }
 .mp-menu-h { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 10px; font-size: .8rem; color: #161616; }
-.mp-menu-h a { font-size: .7rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: #7a3b1c; }
+.mp-menu-h a { font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #5a260d; }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .mp-promo-card, .mp-promo-menu { background: rgba(255,255,255,.97); } }
 @media (max-width: 600px) {
   .mp-promo { left: 8px; right: 8px; bottom: 8px; width: auto; max-width: none; }
@@ -668,7 +669,7 @@ input:focus, select:focus, textarea:focus { outline: 2px solid rgba(210,124,82,.
 .mp-menu-col a[aria-current] { font-weight: 500; }
 .mp-n { display: inline-block; min-width: 20px; padding: 0 6px; border-radius: 10px; background: var(--ok-soft); color: var(--ok); font-size: .7rem; font-weight: 600; text-align: center; line-height: 18px; }
 .mp-menu-grid.compact { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px 18px; }
-.mp-menu-grid.compact h4 { color: #7a3b1c; }
-.mp-menu-grid.compact a { font-size: .82rem; padding: 3px 0; color: #262626; }
+.mp-menu-grid.compact h4 { color: #5a260d; font-weight: 700; }
+.mp-menu-grid.compact a { font-size: .82rem; padding: 3px 0; color: #111; font-weight: 500; }
 
 @media (max-width: 520px) { .mp-specs div { grid-template-columns: 110px minmax(0, 1fr); } }
