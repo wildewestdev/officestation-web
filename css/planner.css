@@ -161,3 +161,8 @@
   .pl-bar [data-mode] span { display: none; }
   .pl-stage { height: 56vh; }
 }
+
+/* custom pod: type + seats, added in one step */
+.pl-custpod { border-top: 1px solid var(--line); margin-top: 10px; padding-top: 10px; }
+.pl-custpod > span { display: block; font-size: .74rem; color: var(--ink-2); margin-bottom: 6px; font-weight: 500; }
+.pl-custpod .pl-btn { width: 100%; }
