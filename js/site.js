@@ -67,7 +67,7 @@
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { if (!r.ok) throw new Error(j.error || "Request failed"); return j; }); })
         .then(function () {
           show("ok", "Thank you. We received your request and will reply within one business day.");
-          form.querySelectorAll("input:not([type=radio]):not([type=checkbox]), textarea").forEach(function (i) { if (i.name !== "city") i.value = ""; });
+          form.querySelectorAll("input:not([type=radio]):not([type=checkbox]):not([type=hidden]), textarea").forEach(function (i) { if (i.name !== "city") i.value = ""; });
           if (window.gtag) window.gtag("event", "generate_lead", { lead_type: data.type });
         })
         .catch(function () { show("err", "Something went wrong sending that. Please try again in a moment."); })
