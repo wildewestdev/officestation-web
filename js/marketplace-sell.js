@@ -29,6 +29,10 @@ if (form) {
   const status = form.querySelector(".form-status");
   const btn = form.querySelector('button[type="submit"]');
   let photos = [];
+  // /marketplace/sell/?market=denver-co preselects that metro
+  const want = new URLSearchParams(location.search).get("market");
+  const sel = document.getElementById("sf-market");
+  if (want && sel && sel.querySelector(`option[value="${CSS.escape(want)}"]`)) sel.value = want;
   const show = (cls, msg) => { status.hidden = false; status.className = "form-status " + cls; status.textContent = msg; };
   const draw = () => {
     box.innerHTML = "";

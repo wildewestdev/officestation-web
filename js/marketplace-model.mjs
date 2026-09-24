@@ -3,12 +3,76 @@
 // Listings are written in Office Station's own words from structured fields; nothing a
 // third party typed is published verbatim.
 
-export const MARKETS = {
-  "phoenix-az": {
-    name: "Phoenix", state: "AZ", region: "Greater Phoenix",
-    areas: ["Phoenix", "Scottsdale", "Tempe", "Mesa", "Chandler", "Gilbert", "Glendale", "Peoria", "Surprise", "Goodyear", "Avondale", "Queen Creek", "Buckeye", "Cave Creek", "Fountain Hills", "Paradise Valley", "Sun City", "Tolleson", "Apache Junction"],
-  },
+// Every Office Station metro. [name, state, lat, lng, US group, region label (default "Greater <name>")]
+// Coordinates are the metro centre, used to match a visitor to their nearest market.
+const M = {
+  "phoenix-az": ["Phoenix", "AZ", 33.4484, -112.074, "Southwest"],
+  "tucson-az": ["Tucson", "AZ", 32.2226, -110.9747, "Southwest"],
+  "flagstaff-az": ["Flagstaff", "AZ", 35.1983, -111.6513, "Southwest"],
+  "las-vegas-nv": ["Las Vegas", "NV", 36.1699, -115.1398, "Southwest"],
+  "albuquerque-nm": ["Albuquerque", "NM", 35.0844, -106.6504, "Southwest"],
+  "los-angeles-ca": ["Los Angeles", "CA", 34.0522, -118.2437, "West Coast"],
+  "orange-county-ca": ["Orange County", "CA", 33.7175, -117.8311, "West Coast", "Orange County"],
+  "san-diego-ca": ["San Diego", "CA", 32.7157, -117.1611, "West Coast"],
+  "northern-california": ["Northern California", "CA", 37.7749, -122.4194, "West Coast", "Northern California"],
+  "portland-or": ["Portland", "OR", 45.5152, -122.6784, "West Coast"],
+  "seattle-wa": ["Seattle", "WA", 47.6062, -122.3321, "West Coast"],
+  "reno-nv": ["Reno", "NV", 39.5296, -119.8138, "Mountain West"],
+  "salt-lake-city-ut": ["Salt Lake City", "UT", 40.7608, -111.891, "Mountain West"],
+  "denver-co": ["Denver", "CO", 39.7392, -104.9903, "Mountain West"],
+  "dallas-fort-worth-tx": ["Dallas-Fort Worth", "TX", 32.7767, -96.797, "Texas & Plains", "the Dallas-Fort Worth area"],
+  "houston-tx": ["Houston", "TX", 29.7604, -95.3698, "Texas & Plains"],
+  "austin-tx": ["Austin", "TX", 30.2672, -97.7431, "Texas & Plains"],
+  "san-antonio-tx": ["San Antonio", "TX", 29.4241, -98.4936, "Texas & Plains"],
+  "oklahoma-city-ok": ["Oklahoma City", "OK", 35.4676, -97.5164, "Texas & Plains"],
+  "omaha-ne": ["Omaha", "NE", 41.2565, -95.9345, "Texas & Plains"],
+  "kansas-city-mo": ["Kansas City", "MO", 39.0997, -94.5786, "Texas & Plains"],
+  "st-louis-mo": ["St. Louis", "MO", 38.627, -90.1994, "Midwest"],
+  "minneapolis-mn": ["Minneapolis-St. Paul", "MN", 44.9778, -93.265, "Midwest", "the Twin Cities"],
+  "milwaukee-wi": ["Milwaukee", "WI", 43.0389, -87.9065, "Midwest"],
+  "chicago-il": ["Chicago", "IL", 41.8781, -87.6298, "Midwest"],
+  "detroit-mi": ["Detroit", "MI", 42.3314, -83.0458, "Midwest"],
+  "grand-rapids-mi": ["Grand Rapids", "MI", 42.9634, -85.6681, "Midwest"],
+  "indianapolis-in": ["Indianapolis", "IN", 39.7684, -86.1581, "Midwest"],
+  "columbus-oh": ["Columbus", "OH", 39.9612, -82.9988, "Midwest"],
+  "cleveland-oh": ["Cleveland", "OH", 41.4993, -81.6944, "Midwest"],
+  "cincinnati-oh": ["Cincinnati", "OH", 39.1031, -84.512, "Midwest"],
+  "pittsburgh-pa": ["Pittsburgh", "PA", 40.4406, -79.9959, "Northeast"],
+  "new-york-ny": ["New York City", "NY", 40.7128, -74.006, "Northeast", "Greater New York"],
+  "northern-new-jersey": ["Northern New Jersey", "NJ", 40.7357, -74.1724, "Northeast", "Northern New Jersey"],
+  "boston-ma": ["Boston", "MA", 42.3601, -71.0589, "Northeast"],
+  "philadelphia-pa": ["Philadelphia", "PA", 39.9526, -75.1652, "Northeast"],
+  "baltimore-md": ["Baltimore", "MD", 39.2904, -76.6122, "Northeast"],
+  "washington-dc": ["Washington, D.C.", "DC", 38.9072, -77.0369, "Northeast", "Greater Washington, D.C."],
+  "atlanta-ga": ["Atlanta", "GA", 33.749, -84.388, "Southeast"],
+  "charlotte-nc": ["Charlotte", "NC", 35.2271, -80.8431, "Southeast"],
+  "raleigh-durham-nc": ["Raleigh-Durham", "NC", 35.8992, -78.8636, "Southeast", "the Research Triangle"],
+  "nashville-tn": ["Nashville", "TN", 36.1627, -86.7816, "Southeast"],
+  "miami-fl": ["Miami", "FL", 25.7617, -80.1918, "Southeast", "South Florida"],
+  "tampa-fl": ["Tampa", "FL", 27.9506, -82.4572, "Southeast", "Tampa Bay"],
+  "orlando-fl": ["Orlando", "FL", 28.5383, -81.3792, "Southeast", "Central Florida"],
 };
+const PHX_AREAS = ["Phoenix", "Scottsdale", "Tempe", "Mesa", "Chandler", "Gilbert", "Glendale", "Peoria", "Surprise", "Goodyear", "Avondale", "Queen Creek", "Buckeye", "Cave Creek", "Fountain Hills", "Paradise Valley", "Sun City", "Tolleson", "Apache Junction"];
+export const MARKETS = Object.fromEntries(Object.entries(M).map(([slug, [name, state, lat, lng, group, region]]) => [slug, {
+  name, state, lat, lng, group, region: region || `Greater ${name}`,
+  areas: slug === "phoenix-az" ? PHX_AREAS : [name.replace(/-.*/, "")],
+}]));
+export const GROUPS = ["Southwest", "West Coast", "Mountain West", "Texas & Plains", "Midwest", "Northeast", "Southeast"];
+export const HOME_MARKET = "phoenix-az";
+
+// nearest market to a point, in straight-line miles
+export function nearestMarket(lat, lng) {
+  if (typeof lat !== "number" || typeof lng !== "number") return null;
+  const rad = Math.PI / 180;
+  let best = null;
+  for (const [slug, m] of Object.entries(MARKETS)) {
+    const dLat = (m.lat - lat) * rad, dLng = (m.lng - lng) * rad;
+    const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat * rad) * Math.cos(m.lat * rad) * Math.sin(dLng / 2) ** 2;
+    const d = 2 * 3958.8 * Math.asin(Math.sqrt(h));
+    if (!best || d < best.miles) best = { slug, miles: Math.round(d) };
+  }
+  return best;
+}
 
 export const CATEGORIES = {
   cubicles: { label: "Cubicles & workstations", noun: "workstations", one: "workstation" },
@@ -69,7 +133,8 @@ export function describe(l) {
   const make = clean([l.brand, l.series].filter(Boolean).join(" "));
   const size = sizeLabel(l.size);
   const cond = CONDITIONS[l.condition];
-  const area = clean(l.area) || (MARKETS[l.market] || {}).region || "Greater Phoenix";
+  const mk = MARKETS[l.market] || MARKETS[HOME_MARKET];
+  const area = clean(l.area) || mk.region;
   const noun = qty === 1 ? cat.one : cat.noun;
   const what = [qty ? String(qty) : "", make, noun].filter(Boolean).join(" "); // "16 Herman Miller Action Office workstations"
   const each = size && l.category !== "seating" ? `, each ${size}` : "";
@@ -94,9 +159,9 @@ export function describe(l) {
   if (clean(l.features)) s.push(clean(l.features).replace(/([^.!?])$/, "$1."));
 
   s.push(pick(l.id + "c", [
-    `Office Station can deliver, install and reconfigure ${qty === 1 ? `this ${cat.one}` : `these ${cat.noun}`} anywhere in Greater Phoenix, or you can arrange your own pickup.`,
-    `Delivery, professional installation and reconfiguration are available across Greater Phoenix; local pickup is also possible.`,
-    `Want it installed? Office Station handles delivery and installation throughout the Valley${l.category === "cubicles" || l.category === "benching" ? ", and can add or remove stations to fit your plan" : ""}.`,
+    `Office Station can deliver, install and reconfigure ${qty === 1 ? `this ${cat.one}` : `these ${cat.noun}`} anywhere in ${mk.region}, or you can arrange your own pickup.`,
+    `Delivery, professional installation and reconfiguration are available across ${mk.region}; local pickup is also possible.`,
+    `Want it installed? Office Station handles delivery and installation throughout ${mk.region}${l.category === "cubicles" || l.category === "benching" ? ", and can add or remove stations to fit your plan" : ""}.`,
   ]));
   s.push(pick(l.id + "d", [
     `Free space planning is included: send your floor plan and we'll show you how ${qty ? `the ${qty} ${noun}` : "these"} lay out.`,
@@ -130,5 +195,6 @@ export const specRows = (l) => [
 // The consignment ask sent (by a person) to Facebook Marketplace sellers.
 export function outreachMessage(p) {
   const item = clean(p.title) || "your office furniture";
-  return `Hi, I saw your listing for ${item}. I'm with Office Station (officestation.com), an office furniture dealer here in the Valley. We'd like to offer it on consignment through the OfficeStation Marketplace: we photograph and list it, handle buyers, delivery and installation, and pay you when it sells. There is no cost to list. Interested?`;
+  const where = (MARKETS[p.market] || MARKETS[HOME_MARKET]).region;
+  return `Hi, I saw your listing for ${item}. I'm with Office Station (officestation.com), an office furniture dealer serving ${where}. We'd like to offer it on consignment through the OfficeStation Marketplace: we photograph and list it, handle buyers, delivery and installation, and pay you when it sells. There is no cost to list. Interested?`;
 }
