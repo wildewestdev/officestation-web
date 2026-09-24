@@ -660,6 +660,26 @@ input:focus, select:focus, textarea:focus { outline: 2px solid rgba(210,124,82,.
   .mp-promo-menu { left: 0; right: 0; width: auto; max-height: 64vh; }
   body:has(#mpPromo:not([hidden])) { padding-bottom: 124px; }
 }
+/* Marketplace search bar (top of every Marketplace page) + search page */
+.mp-search { display: flex; align-items: center; gap: 0; max-width: 720px; margin: 0 0 22px; border: 1px solid var(--ink-2); background: #fff; }
+.mp-search:focus-within { border-color: var(--copper); box-shadow: 0 0 0 3px rgba(210,124,82,.18); }
+.mp-search-ico { display: flex; padding: 0 4px 0 14px; color: var(--muted); }
+.mp-search-ico svg { width: 18px; height: 18px; }
+.mp-search input[type="search"] { flex: 1; min-width: 0; border: 0; outline: 0; box-shadow: none; padding: 13px 10px; font-size: 16px; background: transparent; }
+.mp-search input[type="search"]:focus { outline: 0; }
+.mp-search .btn { border-radius: 0; align-self: stretch; padding-inline: 22px; }
+.mp-listing .mp-search { margin-bottom: 18px; }
+.mp-search-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-top: 8px; }
+.mp-search-tools p { margin: 0; }
+.mp-search-sel { display: flex; flex-wrap: wrap; gap: 12px 18px; }
+.mp-search-sel label { display: flex; align-items: center; gap: 8px; font-size: .78rem; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); }
+.mp-search-sel select { width: auto; min-width: 190px; padding-block: 9px; font-size: .9rem; text-transform: none; letter-spacing: 0; }
+@media (max-width: 600px) {
+  .mp-search .btn { padding-inline: 14px; }
+  .mp-search input[type="search"]::placeholder { font-size: 14px; }
+  .mp-search-sel, .mp-search-sel label { width: 100%; }
+  .mp-search-sel select { flex: 1; min-width: 0; }
+}
 /* all-markets menu (hub page + homepage card) */
 .mp-menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 18px 24px; }
 .mp-menu-col h4 { font-size: .68rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--copper-text); margin: 0 0 6px; }
