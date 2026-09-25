@@ -170,6 +170,9 @@ export const GRADES = {
 export const WORKSTATIONS = {
   // 9/15/26: 6x6 set by Carlos (liquidation $615, reman $1,245, new $1,920); other sizes scaled by the same ratios.
   // Furniture prices exclude electrical, delivery and professional installation. Space planning is free.
+  // 5x5 added 9/24/26 for the planner, scaled from 6x6 on the same footprint curve as 6x8/8x8. PROVISIONAL: confirm with Carlos.
+  "5x5": { label: "5' × 5' workstation", used: 505, reman: 1020, new: 1570, provisional: true },
+  "5x6": { label: "5' × 6' workstation", used: 555, reman: 1125, new: 1735, provisional: true }, // PROVISIONAL, same curve: confirm with Carlos
   "6x6": { label: "6' × 6' workstation", used: 615, reman: 1245, new: 1920 },
   "6x8": { label: "6' × 8' workstation", used: 725, reman: 1410, new: 2170 },
   "8x8": { label: "8' × 8' manager station", used: 850, reman: 1615, new: 2470 },

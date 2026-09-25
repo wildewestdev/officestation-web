@@ -194,7 +194,7 @@ export const specRows = (l) => [
 
 // Follow-up once a seller says yes: photo permission + pricing/terms, in writing, in the same thread.
 export function consentMessage(p) {
-  return `Great, thank you! Two quick things before we list it: 1) Please send the photos you'd like us to use, or reply "OK to use my Facebook photos" and we'll use the ones from your listing. 2) Office Station sets the listing price from current market data, and we'll confirm the consignment terms with you in writing before anything goes live. Thanks again!`;
+  return `Great, thank you! Two quick things before we list it: 1) Please send the photos you'd like us to use (here, or by email to hello@officestation.com), or reply "OK to use my Facebook photos" and we'll use the ones from your listing. 2) Office Station sets the listing price from current market data, and we'll confirm the consignment terms with you in writing before anything goes live. Thanks again!`;
 }
 
 // The consignment ask sent (by a person) to Facebook Marketplace sellers.
@@ -202,5 +202,5 @@ export function outreachMessage(p) {
   const item = clean(p.title) || "your office furniture";
   const where = (MARKETS[p.market] || MARKETS[HOME_MARKET]).region;
   // "30 years": officestation.com was registered in 1996. Don't say "over 30" before that is true.
-  return `Hi, I saw your listing for ${item}. I'm with Office Station (officestation.com), serving ${where}. For 30 years, officestation.com has been a resource for office furniture dealers and their clients, and a free consignment listing on the OfficeStation Marketplace may be a great way to sell these units. We list them, handle buyers, delivery and installation, and pay you when they sell. There is no cost to list. Interested?`;
+  return `Hi, I saw your listing for ${item}. I'm with Office Station (officestation.com), serving ${where}. For 30 years, officestation.com has been a resource for office furniture dealers and their clients, and a free consignment listing on the OfficeStation Marketplace may be a great way to sell these units. We list them, handle buyers, delivery and installation, and pay you when they sell. There is no cost to list. Interested? Reply here or email hello@officestation.com.`;
 }
