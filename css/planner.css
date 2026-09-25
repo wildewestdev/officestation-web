@@ -88,6 +88,9 @@
 .pl-seg { display: flex; border: 1px solid var(--pl-line); border-radius: 2px; overflow: hidden; }
 .pl-seg button { flex: 1; background: #fff; border: 0; border-right: 1px solid var(--pl-line); padding: 7px 4px; cursor: pointer; font-size: .76rem; min-height: 34px; color: var(--ink-2); }
 .pl-seg button:last-child { border-right: 0; }
+/* greyed while Mono is ticked on a single panel */
+.pl-seg.pl-off { opacity: .5; }
+.pl-seg button:disabled { cursor: not-allowed; }
 .pl-seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
 .pl-seats { display: flex; align-items: stretch; max-width: 180px; }
 .pl-seats button { width: 40px; min-height: 38px; border: 1px solid var(--pl-line); background: #fff; font-size: 1.1rem; cursor: pointer; color: var(--ink); }
