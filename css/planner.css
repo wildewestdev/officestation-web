@@ -23,7 +23,8 @@
 .pl-bar button { display: inline-flex; align-items: center; gap: 6px; background: none; border: 1px solid transparent; padding: 7px 10px; min-height: 38px; cursor: pointer; border-radius: 3px; color: var(--ink-2); }
 .pl-bar button:hover { background: var(--stone); }
 .pl-bar button[aria-pressed="true"] { background: var(--ink); color: #fff; }
-.pl-main { display: grid; grid-template-columns: 250px minmax(0, 1fr) 320px; height: calc(100vh - 150px); min-height: 620px; }
+/* one row pinned to the planner height: a long settings column scrolls on its own instead of stretching the 2D/3D stage (9/25/26) */
+.pl-main { display: grid; grid-template-columns: 250px minmax(0, 1fr) 320px; grid-template-rows: minmax(0, 1fr); height: calc(100vh - 150px); min-height: 620px; }
 .pl-side { overflow-y: auto; padding: 12px; background: #fff; }
 .pl-left { border-right: 1px solid var(--pl-line); }
 .pl-right-col { border-left: 1px solid var(--pl-line); background: var(--stone); }
@@ -68,7 +69,7 @@
 .pl-cust-row { display: flex; gap: 6px; align-items: center; margin-top: 4px; }
 .pl-cust-row input[type=color] { width: 40px; height: 34px; padding: 0 2px; border: 1px solid var(--pl-line); background: #fff; flex: none; cursor: pointer; }
 .pl-cust-row input[type=text] { flex: 1; min-width: 0; font: inherit; font-size: .8rem; padding: 7px 8px; border: 1px solid var(--pl-line); min-height: 34px; }
-.pl-stage { position: relative; display: grid; grid-template-columns: 1fr; min-width: 0; background: #eeebe6; }
+.pl-stage { position: relative; display: grid; grid-template-columns: 1fr; min-width: 0; min-height: 0; background: #eeebe6; }
 .pl-stage[data-view="split"] { grid-template-columns: 1fr 1fr; }
 .pl-stage[data-view="plan"] .pl-3d, .pl-stage[data-view="3d"] .pl-2d { display: none; }
 .pl-view { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
