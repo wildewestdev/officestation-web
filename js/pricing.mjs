@@ -179,9 +179,12 @@ export const WORKSTATIONS = {
   bench: { label: "Open bench seat", used: 460, reman: 875, new: 1235 },
 };
 export const PANELS = {
+  // 9/25/26 (Carlos): panel heights are 39", 47", 53" and 67" (tall moved 65" -> 67", same multiplier).
+  // 39" multiplier is PROVISIONAL (0.92, below 47"'s 0.95): confirm with Carlos; kept off the public quote builder.
+  short: { label: "Short 39\"", hint: "Desk-height divider", mult: 0.92, provisional: true },
   low: { label: "Low 47\"", hint: "Collaborative", mult: 0.95 },
   mid: { label: "Mid 53\"", hint: "Seated privacy", mult: 1 },
-  tall: { label: "Tall 65\"", hint: "Full privacy", mult: 1.08 },
+  tall: { label: "Tall 67\"", hint: "Full privacy", mult: 1.08 },
 };
 export const EXTRAS = {
   chairs: { label: "Ergonomic task chairs", used: 145, reman: 245, new: 395 },
