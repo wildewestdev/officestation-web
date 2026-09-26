@@ -170,3 +170,12 @@
 .pl-custpod { border-top: 1px solid var(--line); margin-top: 10px; padding-top: 10px; }
 .pl-custpod > span { display: block; font-size: .74rem; color: var(--ink-2); margin-bottom: 6px; font-weight: 500; }
 .pl-custpod .pl-btn { width: 100%; }
+
+/* file name + save dialog (9/26/26) */
+.pl-fname { max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; border: 1px dashed var(--pl-line) !important; }
+.pl-fname:hover { border-style: solid !important; }
+.pl-savelab { display: grid; gap: 6px; font-size: .8rem; font-weight: 500; margin: 6px 0 4px; }
+.pl-savelab input { font: inherit; font-size: 1rem; font-weight: 400; padding: 10px 12px; border: 1px solid var(--pl-line); border-radius: 2px; min-width: min(420px, 80vw); }
+.pl-primary { background: #1c1c1c !important; color: #fff !important; border-color: #1c1c1c !important; }
+.pl-plist li.cur { background: #f7ebe4; }
+@media (max-width: 760px) { .pl-fname { max-width: 120px; } }
